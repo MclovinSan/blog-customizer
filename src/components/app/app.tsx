@@ -3,28 +3,31 @@ import clsx from 'clsx';
 
 import { Article } from '../article/Article';
 import { ArticleParamsForm } from '../article-params-form/ArticleParamsForm';
-import { defaultArticleState } from './../../constants/articleProps';
+import {
+	ArticleStateType,
+	defaultArticleState,
+} from './../../constants/articleProps';
 
 import styles from './app.module.scss';
 
 export const App = () => {
-	const [formState, setFormState] = useState({ ...defaultArticleState });
+	const [articleState, setArticleState] = useState({ ...defaultArticleState });
+	const handlerSubmit = (value: ArticleStateType) =>
+		setArticleState({ ...value });
+	const handlerReset = () => setArticleState({ ...defaultArticleState });
 	return (
 		<main
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': formState.fontFamilyOption.value,
-					'--font-size': formState.fontSizeOption.value,
-					'--font-color': formState.fontColor.value,
-					'--container-width': formState.contentWidth.value,
-					'--bg-color': formState.backgroundColor.value,
+					'--font-family': articleState.fontFamilyOption.value,
+					'--font-size': articleState.fontSizeOption.value,
+					'--font-color': articleState.fontColor.value,
+					'--container-width': articleState.contentWidth.value,
+					'--bg-color': articleState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm
-				onSubmit={(value) => setFormState({ ...value })}
-				onReset={() => setFormState({ ...defaultArticleState })}
-			/>
+			<ArticleParamsForm onSubmit={handlerSubmit} onReset={handlerReset} />
 			<Article />
 		</main>
 	);

@@ -27,7 +27,7 @@ type Tprops = {
 export const ArticleParamsForm = ({ onSubmit, onReset }: Tprops) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [formState, setFormState] = useState({ ...defaultArticleState });
-	const formRef = useRef<HTMLFormElement | null>(null);
+	const formRef = useRef<HTMLElement | null>(null);
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		onSubmit({ ...formState });
@@ -59,8 +59,9 @@ export const ArticleParamsForm = ({ onSubmit, onReset }: Tprops) => {
 				}}
 			/>
 			<aside
-				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
-				<form className={styles.form} onSubmit={handleSubmit} ref={formRef}>
+				className={clsx(styles.container, { [styles.container_open]: isOpen })}
+				ref={formRef}>
+				<form className={styles.form} onSubmit={handleSubmit}>
 					<Text as={'h2'} size={31} weight={800} uppercase>
 						Задайте параметры
 					</Text>
